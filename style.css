@@ -43,24 +43,23 @@ h1,h2,h3{font-family:'Montserrat',sans-serif;}
 
 /* ─── ONBOARDING OB1 / OB2 ─── */
 .ob-illus{
-  flex:0 0 55%;
-  background:#e0ecf4;
+  flex:0 0 58%;
+  background:var(--bg);
   display:flex;
-  align-items:center;
+  align-items:flex-end;
   justify-content:center;
+  overflow:hidden;
 }
 .ob-illus img{
-  max-width:100%;
-  max-height:100%;
-  width:auto;
-  height:auto;
   display:block;
+  flex-shrink:0;
 }
 .ob-illus img.spin{
-  max-width:82%;
-  max-height:82%;
+  width:82%;
+  height:auto;
   animation:spin 12s linear infinite;
   transform-origin:center;
+  align-self:center;
 }
 @keyframes spin{
   from{transform:rotate(0deg);}
@@ -68,10 +67,10 @@ h1,h2,h3{font-family:'Montserrat',sans-serif;}
 }
 @keyframes float{
   0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-14px);}
+  50%{transform:translateY(-18px);}
 }
-.float-a{animation:float 3.2s ease-in-out infinite;}
-.float-b{animation:float 3.2s ease-in-out infinite 1.6s;}
+.float-a{animation:float 3s ease-in-out infinite;}
+.float-b{animation:float 3s ease-in-out infinite 1.5s;}
 .ob-body{
   flex:1;
   padding:24px 28px 0;
