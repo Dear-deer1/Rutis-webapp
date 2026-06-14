@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="img/favicon.svg">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -227,20 +228,11 @@
 <!-- FEEDBACK -->
 <div class="feedback-modal" id="feedback-modal">
   <div class="feedback-box">
-    <div style="font-size:36px;margin-bottom:8px;text-align:center;">🎉</div>
+    <div style="font-size:48px;margin-bottom:12px;text-align:center;">🎉</div>
     <h3>Урожай собран!</h3>
-    <p class="sub">Расскажи как прошло — твой отзыв помогает улучшать наборы</p>
-    <div class="star-label">Насколько просто было вырастить?</div>
-    <div class="stars" id="stars-easy">
-      <span class="star" onclick="rateStar('easy',1)">⭐</span><span class="star" onclick="rateStar('easy',2)">⭐</span><span class="star" onclick="rateStar('easy',3)">⭐</span><span class="star" onclick="rateStar('easy',4)">⭐</span><span class="star" onclick="rateStar('easy',5)">⭐</span>
-    </div>
-    <div class="star-label">Насколько увлекательно?</div>
-    <div class="stars" id="stars-fun">
-      <span class="star" onclick="rateStar('fun',1)">⭐</span><span class="star" onclick="rateStar('fun',2)">⭐</span><span class="star" onclick="rateStar('fun',3)">⭐</span><span class="star" onclick="rateStar('fun',4)">⭐</span><span class="star" onclick="rateStar('fun',5)">⭐</span>
-    </div>
-    <textarea class="feedback-ta" id="feedback-text" placeholder="Что понравилось? Что улучшить?"></textarea>
-    <button class="btn-primary" onclick="submitFeedback()">Отправить отзыв</button>
-    <button style="display:block;width:100%;background:transparent;color:var(--text2);border:none;padding:14px;font-size:15px;text-align:center;cursor:pointer;font-family:'Inter',sans-serif;" onclick="closeModal('feedback-modal')">Пропустить</button>
+    <p class="sub">Займёт 1 минуту — расскажи как прошло. Это помогает нам улучшать наборы.</p>
+    <a class="btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSdRW1xS2sbjGMASP7b7UE5O94QIX60obx7riB1_aIPuQ8pNfA/viewform" target="_blank" style="text-decoration:none;display:block;margin-bottom:10px;" onclick="closeModal('feedback-modal')">Оставить отзыв</a>
+    <button style="display:block;width:100%;background:transparent;color:var(--text2);border:none;padding:12px;font-size:15px;text-align:center;cursor:pointer;font-family:'Inter',sans-serif;" onclick="closeModal('feedback-modal')">Пропустить</button>
   </div>
 </div>
 

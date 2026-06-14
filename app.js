@@ -46,7 +46,7 @@ const BADGE_DEFS=[
   {icon:'🌿',name:'Листочки'},{icon:'✂️',name:'Урожай!'}
 ];
 
-let S={currentScreen:'ob1',startDate:null,completed:[],points:0,badges:[],history:[],ratings:{easy:0,fun:0}};
+let S={currentScreen:'ob1',startDate:null,completed:[],points:0,badges:[],history:[]};
 
 function load(){try{const s=localStorage.getItem('rutis3');if(s)S=Object.assign(S,JSON.parse(s));}catch(e){}}
 function save(){try{localStorage.setItem('rutis3',JSON.stringify(S));}catch(e){}}
@@ -176,15 +176,6 @@ function renderPoints(){
 function openModal(id){document.getElementById(id).classList.add('open');}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
 
-function rateStar(type,val){
-  S.ratings[type]=val;
-  document.querySelectorAll('#stars-'+type+' .star').forEach((s,i)=>s.classList.toggle('active',i<val));
-}
-
-function submitFeedback(){
-  S.feedbackText=document.getElementById('feedback-text').value;
-  save();closeModal('feedback-modal');showToast('Спасибо за отзыв! 🙏');
-}
 
 function showToast(msg){
   const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
