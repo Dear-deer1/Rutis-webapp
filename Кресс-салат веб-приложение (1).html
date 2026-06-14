@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Rutis">
+<meta name="theme-color" content="#E5F3FA">
+<title>Rutis — вырасти кресс-салат</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#E5F3FA;
+  --card:#fff;
+  --text:#000000;
+  --text2:#4a5250;
+  --text3:#8a9896;
+  --accent:#FA8153;
+  --accent2:#9EE86C;
+  --accent3:#000000;
+  --yellow:#F8E46E;
+  --border:#d0e8f0;
+  --radius:16px;
+  --radius-sm:10px;
+}
+html,body{
+  height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.5;
+  -webkit-tap-highlight-color:transparent;
+  overscroll-behavior:none;
+}
+h1,h2,h3{font-family:'Montserrat',sans-serif;}
+#app{
+  max-width:430px;
+  margin:0 auto;
+  height:100%;
+  position:relative;
+  overflow:hidden;
+}
+
+/* ─── ALL SCREENS ─── */
+.screen{
+  display:none;
+  position:absolute;
+  inset:0;
+  background:var(--bg);
+}
+.screen.active{display:flex;flex-direction:column;}
+
+/* ─── ONBOARDING OB1 / OB2 ─── */
+.ob-illus{
+  /* placeholder — вставь свою картинку сюда */
+  flex:0 0 55%;
+  background:#e0ecf4;
+  overflow:hidden;
+  position:relative;
+}
+.ob-illus img{
+  width:100%;height:100%;object-fit:cover;display:block;
+}
+/* Подпись «вставь иллюстрацию» — убери когда добавишь картинку */
+.ob-illus-hint{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:13px;color:var(--text3);font-family:'Inter',sans-serif;text-align:center;padding:20px;
+}
+.ob-body{
+  flex:1;
+  padding:24px 28px 0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.ob-body h1{
+  font-size:28px;
+  font-weight:800;
+  line-height:1.15;
+  letter-spacing:-.5px;
+  color:var(--text);
+  margin-bottom:10px;
+}
+.ob-body p{
+  font-size:16px;
+  color:var(--text2);
+  line-height:1.6;
+}
+.ob-nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:20px 28px 40px;
+}
+.ob-dots{display:flex;gap:6px;align-items:center;}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--border);}
+.dot.active{background:var(--text);width:22px;border-radius:4px;}
+.ob-arrow{
+  width:52px;height:52px;border-radius:50%;
+  background:var(--card);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;color:var(--text);
+  box-shadow:0 2px 12px rgba(0,0,0,.1);
+  font-family:'Inter',sans-serif;
+}
+.ob-arrow:active{transform:scale(.94);}
+
+/* ─── ONBOARDING OB3 (install) ─── */
+#ob3{overflow-y:auto;}
+.ob3-content{
+  flex:1;
+  padding:52px 28px 0;
+  overflow-y:auto;
+}
+.ob3-content h1{
+  font-size:32px;font-weight:800;line-height:1.15;
+  letter-spacing:-.5px;margin-bottom:8px;
+}
+.ob3-sub{font-size:16px;color:var(--text2);margin-bottom:24px;}
+.seg-wrap{
+  display:flex;background:var(--border);
+  border-radius:50px;padding:3px;margin-bottom:28px;
+}
+.seg-btn{
+  flex:1;padding:10px;border-radius:50px;border:none;
+  font-size:14px;font-weight:600;cursor:pointer;
+  background:transparent;color:var(--text2);
+  font-family:'Inter',sans-serif;
+}
+.seg-btn.active{background:var(--yellow);color:var(--text);}
+.install-steps{display:flex;flex-direction:column;gap:18px;margin-bottom:28px;}
+.install-step{display:flex;gap:16px;align-items:flex-start;}
+.step-num{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--yellow);color:var(--text);
+  font-weight:800;font-size:14px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-family:'Montserrat',sans-serif;
+}
+.step-text{font-size:15px;color:var(--text);line-height:1.55;padding-top:4px;}
+.step-text strong{font-weight:600;}
+
+/* ─── MAIN APP SCREENS ─── */
+#main-screen{flex-direction:column;}
+.app-header{
+  padding:16px 20px 8px;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-shrink:0;
+}
+.app-logo{
+  font-family:'Montserrat',sans-serif;
+  font-size:20px;font-weight:800;color:var(--text);letter-spacing:-.5px;
+}
+.header-pts{
+  background:var(--accent2);color:#1a2a0a;
+  border-radius:20px;padding:5px 12px;font-size:13px;font-weight:600;
+}
+.scroll-main{overflow-y:auto;flex:1;padding-bottom:16px;}
+.section{padding:0 20px;margin-bottom:16px;}
+.section-title{
+  font-size:11px;font-weight:600;color:var(--text3);
+  text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;
+}
+
+/* progress */
+.progress-card{
+  background:var(--card);border-radius:var(--radius);
+  border:0.5px solid var(--border);padding:16px;
+}
+.progress-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.progress-label{font-size:15px;font-weight:600;color:var(--text);}
+.progress-day{font-size:13px;color:var(--text2);}
+.pb-bg{height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin-bottom:6px;}
+.pb-fill{height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent));border-radius:4px;transition:width .4s;}
+.pb-caption{font-size:12px;color:var(--text3);}
+.milestone-row{display:flex;gap:6px;margin-top:12px;}
+.milestone{flex:1;background:#f5f5f5;border-radius:8px;padding:8px 4px;text-align:center;border:0.5px solid var(--border);}
+.milestone.done{background:#e8f8d8;border-color:#b0d880;}
+.ml-icon{font-size:16px;display:block;opacity:.3;}
+.milestone.done .ml-icon{opacity:1;}
+.ml-label{font-size:10px;color:var(--text3);display:block;margin-top:2px;font-weight:500;}
+.milestone.done .ml-label{color:#3a6a12;}
+
+/* tasks */
+.day-header{display:flex;align-items:center;gap:10px;padding:10px 20px 4px;}
+.day-badge{
+  background:var(--accent);color:#fff;
+  border-radius:8px;padding:3px 10px;font-size:11px;font-weight:700;
+}
+.day-lbl{font-size:13px;font-weight:600;color:var(--text2);}
+.task-card{
+  background:var(--card);border-radius:var(--radius);
+  border:0.5px solid var(--border);margin-bottom:8px;overflow:hidden;
+}
+.task-optional{border-style:dashed;border-color:#b0d8f0;}
+.task-inner{display:flex;gap:12px;padding:14px 16px 12px;align-items:flex-start;}
+.task-check{
+  width:24px;height:24px;border-radius:50%;
+  border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:1px;transition:all .15s;cursor:pointer;
+}
+.task-check:active{transform:scale(.88);}
+.task-check.done{background:var(--accent2);border-color:var(--accent2);}
+.task-check.done::after{content:'✓';font-size:12px;color:#1a2a0a;font-weight:700;}
+.task-body{flex:1;min-width:0;cursor:pointer;}
+.task-title{
+  font-size:15px;font-weight:600;color:var(--text);
+  display:flex;align-items:center;gap:6px;margin-bottom:3px;
+}
+.task-card.completed .task-title span:first-child{color:var(--text3);text-decoration:line-through;}
+.task-desc{font-size:13px;color:var(--text2);line-height:1.45;}
+.task-detail-arrow{font-size:10px;color:var(--text3);transition:transform .2s;flex-shrink:0;}
+.task-detail-arrow.open{transform:rotate(180deg);}
+.optional-badge{
+  display:inline-flex;align-items:center;
+  background:#e8f6ff;color:#1a6090;
+  border-radius:20px;padding:2px 9px;
+  font-size:11px;font-weight:600;margin-top:6px;
+  border:0.5px solid #a0d0f0;
+}
+.help-btn{
+  width:18px;height:18px;border-radius:50%;
+  background:#b0d8f0;color:#1a5070;
+  font-size:11px;font-weight:700;
+  cursor:pointer;border:none;flex-shrink:0;
+  display:inline-flex;align-items:center;justify-content:center;
+  line-height:1;
+}
+.help-btn:active{background:#90c8e8;}
+.task-expand{
+  padding:12px 16px 14px;
+  border-top:0.5px solid var(--border);
+  background:#f7f9fa;
+}
+.task-expand p{font-size:13px;color:var(--text2);line-height:1.65;}
+.future-task{opacity:.38;pointer-events:none;}
+
+/* recipe */
+.recipe-card{
+  background:var(--card);border-radius:var(--radius);
+  border:1.5px solid var(--accent);padding:16px;cursor:pointer;
+}
+.recipe-card:active{opacity:.9;}
+.recipe-eyebrow{font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
+.recipe-title{font-size:17px;font-weight:700;color:var(--text);margin-bottom:3px;}
+.recipe-sub{font-size:13px;color:var(--text2);}
+
+/* bottom nav */
+.bottom-nav{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:430px;
+  background:var(--card);border-top:0.5px solid var(--border);
+  display:flex;z-index:100;
+  padding-bottom:env(safe-area-inset-bottom,6px);
+}
+.nav-item{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;padding:10px 0 4px;
+  cursor:pointer;color:var(--text3);
+  font-size:10px;font-weight:500;gap:3px;
+  border:none;background:transparent;
+  font-family:'Inter',sans-serif;
+}
+.nav-item.active{color:var(--accent);}
+.nav-icon{font-size:22px;line-height:1;}
+
+/* ─── POINTS SCREEN ─── */
+#points-screen,#community-screen{
+  flex-direction:column;overflow-y:auto;
+}
+.pts-scroll,#community-screen .comm-scroll{
+  flex:1;overflow-y:auto;padding-bottom:80px;
+}
+.points-hero{
+  background:var(--text);margin:16px 20px;
+  border-radius:var(--radius);padding:22px;
+  color:#fff;text-align:center;
+}
+.points-big{
+  font-family:'Montserrat',sans-serif;
+  font-size:52px;font-weight:800;letter-spacing:-2px;line-height:1;
+}
+.points-lbl{font-size:13px;opacity:.6;margin-top:4px;}
+.points-level{
+  display:inline-block;background:var(--accent2);color:#1a2a0a;
+  border-radius:20px;padding:5px 14px;font-size:13px;font-weight:700;margin-top:10px;
+}
+.badges-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.badge-item{
+  background:var(--card);border-radius:var(--radius-sm);
+  padding:12px 6px;text-align:center;border:0.5px solid var(--border);
+}
+.badge-item.earned{border-color:var(--accent2);background:#f4fce8;}
+.badge-icon{font-size:26px;display:block;margin-bottom:5px;}
+.badge-name{font-size:11px;font-weight:600;color:var(--text2);line-height:1.3;}
+.badge-item.earned .badge-name{color:#2a5a08;}
+.locked{opacity:.3;filter:grayscale(1);}
+.history-item{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:11px 0;border-bottom:0.5px solid var(--border);
+}
+.history-item:last-child{border-bottom:none;}
+.hi-title{font-size:14px;font-weight:500;color:var(--text);}
+.hi-date{font-size:11px;color:var(--text3);margin-top:1px;}
+.hi-pts{font-size:14px;font-weight:700;color:var(--accent2);}
+
+/* ─── COMMUNITY SCREEN ─── */
+.social-card{
+  display:flex;align-items:center;gap:12px;
+  background:var(--card);border-radius:var(--radius-sm);
+  padding:14px 16px;border:0.5px solid var(--border);
+  margin-bottom:8px;cursor:pointer;text-decoration:none;color:var(--text);
+}
+.social-card:active{opacity:.85;}
+.social-icon{
+  width:38px;height:38px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;
+}
+.social-info h4{font-size:14px;font-weight:600;margin-bottom:1px;}
+.social-info p{font-size:12px;color:var(--text2);}
+.sos-card{
+  background:#fff8f5;border:0.5px solid #fcc0a0;
+  border-radius:var(--radius-sm);padding:16px;margin-bottom:8px;
+}
+.sos-title{font-size:15px;font-weight:700;color:var(--accent);margin-bottom:5px;}
+.sos-desc{font-size:14px;color:var(--text2);margin-bottom:12px;line-height:1.5;}
+.sos-btn{
+  display:block;background:var(--accent);color:#fff;
+  border:none;border-radius:8px;padding:12px;
+  font-size:14px;font-weight:600;cursor:pointer;width:100%;
+  font-family:'Inter',sans-serif;
+}
+.info-row{display:flex;gap:8px;}
+.info-pill{
+  flex:1;background:var(--card);border-radius:8px;
+  padding:10px;text-align:center;border:0.5px solid var(--border);
+  font-size:11px;color:var(--text2);font-weight:500;
+}
+.info-pill span{display:block;font-size:18px;margin-bottom:2px;}
+
+/* ─── MODALS ─── */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;
+  display:none;align-items:flex-end;
+  max-width:430px;left:50%;transform:translateX(-50%);
+}
+.modal-overlay.open{display:flex;}
+.modal-sheet{
+  background:var(--bg);border-radius:20px 20px 0 0;
+  width:100%;max-height:88vh;overflow-y:auto;
+  padding:20px 20px 44px;
+}
+.modal-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 18px;}
+.modal-close-row{display:flex;justify-content:flex-end;margin-bottom:12px;}
+.modal-close{
+  background:#f0f0f0;border:none;width:30px;height:30px;
+  border-radius:50%;cursor:pointer;font-size:15px;color:var(--text2);
+}
+
+/* feedback */
+.feedback-modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:300;
+  display:none;align-items:center;justify-content:center;padding:20px;
+  max-width:430px;left:50%;transform:translateX(-50%);
+}
+.feedback-modal.open{display:flex;}
+.feedback-box{background:var(--bg);border-radius:var(--radius);padding:24px;width:100%;}
+.feedback-box h3{font-size:20px;font-weight:700;margin-bottom:6px;text-align:center;font-family:'Montserrat',sans-serif;}
+.feedback-box .sub{font-size:14px;color:var(--text2);margin-bottom:18px;line-height:1.5;text-align:center;}
+.star-label{font-size:13px;color:var(--text2);margin-bottom:6px;font-weight:500;}
+.stars{display:flex;gap:8px;margin-bottom:18px;}
+.star{font-size:26px;cursor:pointer;opacity:.25;transition:opacity .1s;}
+.star.active{opacity:1;}
+.feedback-ta{
+  width:100%;border:0.5px solid var(--border);border-radius:8px;
+  padding:12px;font-size:14px;color:var(--text);background:var(--card);
+  resize:none;min-height:72px;margin-bottom:14px;
+  font-family:'Inter',sans-serif;line-height:1.5;
+}
+.feedback-ta:focus{outline:none;border-color:var(--accent);}
+
+/* h2o2 popup */
+.h2o2-popup{
+  position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:250;
+  display:none;align-items:center;justify-content:center;padding:24px;
+  max-width:430px;left:50%;transform:translateX(-50%);
+}
+.h2o2-popup.open{display:flex;}
+.h2o2-sheet{background:var(--bg);border-radius:var(--radius);width:100%;padding:20px;}
+.h2o2-close-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.h2o2-close-row h3{font-size:15px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px;font-family:'Montserrat',sans-serif;}
+.h2o2-close{background:#f0f0f0;border:none;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;color:var(--text2);flex-shrink:0;}
+.h2o2-lead{font-size:13px;color:var(--text2);line-height:1.55;margin-bottom:14px;padding-bottom:14px;border-bottom:0.5px solid var(--border);}
+.h2o2-points{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;}
+.h2o2-point{display:flex;gap:9px;align-items:baseline;}
+.h2o2-dot{width:6px;height:6px;border-radius:50%;background:#4ab0e0;flex-shrink:0;margin-top:1px;}
+.h2o2-pt-text{font-size:13px;color:var(--text);line-height:1.45;}
+.h2o2-pt-text strong{font-weight:600;}
+.h2o2-pt-text span{color:var(--text2);}
+.h2o2-recipe{background:#e8f6ff;border-radius:8px;padding:10px 12px;display:flex;align-items:baseline;gap:8px;}
+.h2o2-recipe-label{font-size:11px;font-weight:700;color:#1a6090;white-space:nowrap;text-transform:uppercase;letter-spacing:.04em;}
+.h2o2-recipe-text{font-size:12px;color:#2a6080;line-height:1.45;}
+
+/* toast */
+.toast{
+  position:fixed;top:20px;left:50%;
+  transform:translateX(-50%) translateY(-80px);
+  background:var(--text);color:#fff;
+  border-radius:10px;padding:10px 20px;
+  font-size:14px;font-weight:600;z-index:400;
+  transition:transform .25s ease;white-space:nowrap;
+  font-family:'Inter',sans-serif;
+}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+/* shared button */
+.btn-primary{
+  display:block;width:100%;
+  background:var(--text);color:#fff;border:none;
+  border-radius:var(--radius-sm);padding:16px;
+  font-size:17px;font-weight:700;text-align:center;
+  cursor:pointer;-webkit-appearance:none;
+  font-family:'Inter',sans-serif;
+}
+.btn-primary:active{opacity:.85;}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- OB1 -->
+<div class="screen active" id="ob1">
+  <div class="ob-illus">
+    <!-- ВСТАВЬ СЮДА СВОЮ ИЛЛЮСТРАЦИЮ: <img src="illus1.png" alt=""> -->
+    <div class="ob-illus-hint">Вставь иллюстрацию:<br>&lt;img src="illus1.png"&gt;</div>
+  </div>
+  <div class="ob-body">
+    <h1>Готов вырастить кресс-салат за 10 дней?</h1>
+    <p>Шаг за шагом, без лишних знаний — от первого посева до первого укуса.</p>
+  </div>
+  <div class="ob-nav">
+    <div class="ob-dots">
+      <div class="dot active"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+    <button class="ob-arrow" onclick="showScreen('ob2')">→</button>
+  </div>
+</div>
+
+<!-- OB2 -->
+<div class="screen" id="ob2">
+  <div class="ob-illus">
+    <!-- ВСТАВЬ СЮДА СВОЮ ИЛЛЮСТРАЦИЮ: <img src="illus2.png" alt=""> -->
+    <div class="ob-illus-hint">Вставь иллюстрацию:<br>&lt;img src="illus2.png"&gt;</div>
+  </div>
+  <div class="ob-body">
+    <h1>Заходи раз в день</h1>
+    <p>Это веб-приложение, оно не умеет напоминать. Открывай утром, выполняй задачи — урожай будет через 10 дней.</p>
+  </div>
+  <div class="ob-nav">
+    <div class="ob-dots">
+      <div class="dot"></div><div class="dot active"></div><div class="dot"></div>
+    </div>
+    <button class="ob-arrow" onclick="showScreen('ob3')">→</button>
+  </div>
+</div>
+
+<!-- OB3 -->
+<div class="screen" id="ob3">
+  <div class="ob3-content">
+    <h1>Закрепи на рабочем столе</h1>
+    <p class="ob3-sub">Так удобнее открывать каждый день</p>
+    <div class="seg-wrap">
+      <button class="seg-btn active" onclick="switchInstall('ios')" id="btn-ios">iPhone</button>
+      <button class="seg-btn" onclick="switchInstall('android')" id="btn-android">Android</button>
+    </div>
+    <div id="steps-ios" class="install-steps">
+      <div class="install-step"><div class="step-num">1</div><div class="step-text">Нажми <strong>«Поделиться» ⬆️</strong> внизу браузера</div></div>
+      <div class="install-step"><div class="step-num">2</div><div class="step-text">Выбери <strong>«Добавить на экран "Домой"»</strong></div></div>
+      <div class="install-step"><div class="step-num">3</div><div class="step-text">Нажми <strong>«Добавить»</strong> — значок появится на рабочем столе</div></div>
+    </div>
+    <div id="steps-android" class="install-steps" style="display:none;">
+      <div class="install-step"><div class="step-num">1</div><div class="step-text">Нажми <strong>⋮</strong> в правом верхнем углу Chrome</div></div>
+      <div class="install-step"><div class="step-num">2</div><div class="step-text">Выбери <strong>«Добавить на главный экран»</strong></div></div>
+      <div class="install-step"><div class="step-num">3</div><div class="step-text">Подтверди нажав <strong>«Добавить»</strong></div></div>
+    </div>
+  </div>
+  <div class="ob-nav">
+    <div class="ob-dots">
+      <div class="dot"></div><div class="dot"></div><div class="dot active"></div>
+    </div>
+    <button class="ob-arrow" onclick="startApp()">→</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="screen" id="main-screen">
+  <div class="app-header">
+    <div class="app-logo">Rutis</div>
+    <div class="header-pts" id="header-pts">0 очков</div>
+  </div>
+  <div class="scroll-main" style="padding-bottom:80px;">
+    <div class="section">
+      <div class="progress-card">
+        <div class="progress-row">
+          <span class="progress-label">До урожая</span>
+          <span class="progress-day" id="prog-day">День 1 из 10</span>
+        </div>
+        <div class="pb-bg"><div class="pb-fill" id="pb-fill" style="width:0%"></div></div>
+        <div class="pb-caption" id="pb-caption">Выполни первое задание!</div>
+        <div class="milestone-row">
+          <div class="milestone" id="m1"><span class="ml-icon">💧</span><span class="ml-label">Посев</span></div>
+          <div class="milestone" id="m2"><span class="ml-icon">🌱</span><span class="ml-label">Росток</span></div>
+          <div class="milestone" id="m3"><span class="ml-icon">🌿</span><span class="ml-label">Листья</span></div>
+          <div class="milestone" id="m4"><span class="ml-icon">✂️</span><span class="ml-label">Урожай</span></div>
+        </div>
+      </div>
+    </div>
+    <div id="tasks-container"></div>
+    <div id="recipe-teaser" style="display:none;" class="section">
+      <div class="recipe-card" onclick="openModal('recipe-modal')">
+        <div class="recipe-eyebrow">🍽️ Готово к еде!</div>
+        <div class="recipe-title">С чем есть кресс-салат?</div>
+        <div class="recipe-sub">5 идей — от тоста до азиатской лапши</div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-nav">
+    <button class="nav-item active" onclick="switchTab('main')" id="nav-main"><span class="nav-icon">🌱</span><span>Задачи</span></button>
+    <button class="nav-item" onclick="switchTab('points')" id="nav-points"><span class="nav-icon">⭐</span><span>Прогресс</span></button>
+    <button class="nav-item" onclick="switchTab('community')" id="nav-comm"><span class="nav-icon">💬</span><span>Сообщество</span></button>
+  </div>
+</div>
+
+<!-- POINTS -->
+<div class="screen" id="points-screen">
+  <div class="pts-scroll">
+    <div style="padding:16px 20px 0;">
+      <div class="points-hero">
+        <div class="points-big" id="pts-big">0</div>
+        <div class="points-lbl">очков заработано</div>
+        <div class="points-level" id="pts-level">🌰 Начинающий садовод</div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-title">Достижения</div>
+      <div class="badges-grid" id="badges-grid"></div>
+    </div>
+    <div class="section">
+      <div class="section-title">История очков</div>
+      <div style="background:var(--card);border-radius:var(--radius-sm);border:0.5px solid var(--border);padding:4px 16px;" id="history-list">
+        <div style="padding:16px 0;text-align:center;color:var(--text3);font-size:14px;">Пока пусто — выполни первое задание!</div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-title">Уровни</div>
+      <div style="background:var(--card);border-radius:var(--radius-sm);border:0.5px solid var(--border);overflow:hidden;">
+        <div style="display:flex;justify-content:space-between;padding:10px 14px;border-bottom:0.5px solid var(--border);font-size:13px;"><span style="color:var(--text2);">🌰 Начинающий садовод</span><span style="color:var(--text3);">0–49</span></div>
+        <div style="display:flex;justify-content:space-between;padding:10px 14px;border-bottom:0.5px solid var(--border);font-size:13px;"><span style="color:var(--text2);">🌱 Юный огородник</span><span style="color:var(--text3);">50–99</span></div>
+        <div style="display:flex;justify-content:space-between;padding:10px 14px;border-bottom:0.5px solid var(--border);font-size:13px;"><span style="color:var(--text2);">🌿 Опытный садовод</span><span style="color:var(--text3);">100–149</span></div>
+        <div style="display:flex;justify-content:space-between;padding:10px 14px;font-size:13px;"><span style="color:var(--text2);">🏡 Мастер балконного огорода</span><span style="color:var(--text3);">150+</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-nav">
+    <button class="nav-item" onclick="switchTab('main')" id="nav2-main"><span class="nav-icon">🌱</span><span>Задачи</span></button>
+    <button class="nav-item active" onclick="switchTab('points')" id="nav2-points"><span class="nav-icon">⭐</span><span>Прогресс</span></button>
+    <button class="nav-item" onclick="switchTab('community')" id="nav2-comm"><span class="nav-icon">💬</span><span>Сообщество</span></button>
+  </div>
+</div>
+
+<!-- COMMUNITY -->
+<div class="screen" id="community-screen">
+  <div class="comm-scroll">
+    <div style="padding:24px 20px 0;">
+      <h2 style="font-size:24px;font-weight:800;margin-bottom:6px;">Сообщество</h2>
+      <p style="font-size:15px;color:var(--text2);margin-bottom:20px;">Делись результатами, задавай вопросы</p>
+    </div>
+    <div class="section">
+      <div class="section-title">Мы в соцсетях</div>
+      <a href="https://t.me/R_U_T_I_S" class="social-card" target="_blank">
+        <div class="social-icon" style="background:#E5F3FA;overflow:hidden;border-radius:10px;"><img src="аватарка.png" alt="Rutis" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="social-info"><h4>Telegram-канал</h4><p>@R_U_T_I_S</p></div>
+        <span style="color:var(--text3);font-size:18px;">↗</span>
+      </a>
+      <a href="https://clck.ru/3U99Sg" class="social-card" target="_blank">
+        <div class="social-icon" style="background:#E5F3FA;overflow:hidden;border-radius:10px;"><img src="аватарка.png" alt="Rutis" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="social-info"><h4>Дзен</h4><p>Статьи о микрозелени</p></div>
+        <span style="color:var(--text3);font-size:18px;">↗</span>
+      </a>
+      <a href="https://www.tiktok.com/@r_u_t_i_s" class="social-card" target="_blank">
+        <div class="social-icon" style="background:#E5F3FA;overflow:hidden;border-radius:10px;"><img src="аватарка.png" alt="Rutis" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="social-info"><h4>TikTok</h4><p>@r_u_t_i_s</p></div>
+        <span style="color:var(--text3);font-size:18px;">↗</span>
+      </a>
+    </div>
+    <div class="section">
+      <div class="sos-card">
+        <div class="sos-title">🆘 Что-то пошло не так?</div>
+        <div class="sos-desc">Плесень, не прорастает, вопросы по набору — пишите. Если видите ошибку, пришлите скриншот — это помогает нам стать лучше. Ответим в течение дня.</div>
+        <button class="sos-btn" onclick="window.location='mailto:help.rutis@mail.ru'">Написать на help.rutis@mail.ru</button>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-title">В твоём наборе</div>
+      <div class="info-row"><div class="info-pill"><span>🌱</span>Семена</div><div class="info-pill"><span>🧱</span>Агровата</div></div>
+      <div class="info-row" style="margin-top:8px;"><div class="info-pill"><span>💧</span>Распылитель</div><div class="info-pill"><span>📦</span>Лоток</div></div>
+    </div>
+  </div>
+  <div class="bottom-nav">
+    <button class="nav-item" onclick="switchTab('main')" id="nav3-main"><span class="nav-icon">🌱</span><span>Задачи</span></button>
+    <button class="nav-item" onclick="switchTab('points')" id="nav3-points"><span class="nav-icon">⭐</span><span>Прогресс</span></button>
+    <button class="nav-item active" onclick="switchTab('community')" id="nav3-comm"><span class="nav-icon">💬</span><span>Сообщество</span></button>
+  </div>
+</div>
+
+<!-- RECIPE MODAL -->
+<div class="modal-overlay" id="recipe-modal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-close-row"><button class="modal-close" onclick="closeModal('recipe-modal')">✕</button></div>
+    <h2 style="font-size:22px;font-weight:800;margin-bottom:8px;">С чем есть кресс-салат</h2>
+    <p style="font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:16px;">Кресс добавляют только свежим — термообработка убивает пользу. Бодрящий острый вкус с лёгкой хрустящей ноткой.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px;">
+      <span style="background:#f0f0f0;border-radius:20px;padding:5px 11px;font-size:12px;font-weight:600;color:var(--text2);">Быстро</span>
+      <span style="background:#f0f0f0;border-radius:20px;padding:5px 11px;font-size:12px;font-weight:600;color:var(--text2);">Без готовки</span>
+      <span style="background:#f0f0f0;border-radius:20px;padding:5px 11px;font-size:12px;font-weight:600;color:var(--text2);">Острый вкус</span>
+    </div>
+    <div style="display:flex;gap:12px;margin-bottom:14px;align-items:flex-start;"><div style="width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">1</div><div style="font-size:15px;color:var(--text);line-height:1.5;"><strong>Тост с авокадо</strong> — горсть кресса поверх. Соль, оливковое масло — готово.</div></div>
+    <div style="display:flex;gap:12px;margin-bottom:14px;align-items:flex-start;"><div style="width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">2</div><div style="font-size:15px;color:var(--text);line-height:1.5;"><strong>Яичница или омлет</strong> — посыпь свежим крессом прямо перед подачей.</div></div>
+    <div style="display:flex;gap:12px;margin-bottom:14px;align-items:flex-start;"><div style="width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">3</div><div style="font-size:15px;color:var(--text);line-height:1.5;"><strong>Крем-суп</strong> — горсть кресса в тарелку как топпинг вместо лука.</div></div>
+    <div style="display:flex;gap:12px;margin-bottom:14px;align-items:flex-start;"><div style="width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">4</div><div style="font-size:15px;color:var(--text);line-height:1.5;"><strong>Рамен или лапша</strong> — добавь в конце, кресс даст острую травяную ноту.</div></div>
+    <div style="display:flex;gap:12px;margin-bottom:20px;align-items:flex-start;"><div style="width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">5</div><div style="font-size:15px;color:var(--text);line-height:1.5;"><strong>Бутерброд с творожным сыром</strong> — хлеб, сыр, кресс. Честная классика.</div></div>
+    <div style="background:#f0fef5;border-radius:10px;padding:14px;">
+      <div style="font-size:13px;font-weight:700;color:#2a6010;margin-bottom:4px;">💡 Как хранить</div>
+      <div style="font-size:13px;color:#3a7020;line-height:1.6;">В стакане с водой или во влажном полотенце в холодильнике. Хватит на 2–3 дня.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FEEDBACK -->
+<div class="feedback-modal" id="feedback-modal">
+  <div class="feedback-box">
+    <div style="font-size:36px;margin-bottom:8px;text-align:center;">🎉</div>
+    <h3>Урожай собран!</h3>
+    <p class="sub">Расскажи как прошло — твой отзыв помогает улучшать наборы</p>
+    <div class="star-label">Насколько просто было вырастить?</div>
+    <div class="stars" id="stars-easy">
+      <span class="star" onclick="rateStar('easy',1)">⭐</span><span class="star" onclick="rateStar('easy',2)">⭐</span><span class="star" onclick="rateStar('easy',3)">⭐</span><span class="star" onclick="rateStar('easy',4)">⭐</span><span class="star" onclick="rateStar('easy',5)">⭐</span>
+    </div>
+    <div class="star-label">Насколько увлекательно?</div>
+    <div class="stars" id="stars-fun">
+      <span class="star" onclick="rateStar('fun',1)">⭐</span><span class="star" onclick="rateStar('fun',2)">⭐</span><span class="star" onclick="rateStar('fun',3)">⭐</span><span class="star" onclick="rateStar('fun',4)">⭐</span><span class="star" onclick="rateStar('fun',5)">⭐</span>
+    </div>
+    <textarea class="feedback-ta" id="feedback-text" placeholder="Что понравилось? Что улучшить?"></textarea>
+    <button class="btn-primary" onclick="submitFeedback()">Отправить отзыв</button>
+    <button style="display:block;width:100%;background:transparent;color:var(--text2);border:none;padding:14px;font-size:15px;text-align:center;cursor:pointer;font-family:'Inter',sans-serif;" onclick="closeModal('feedback-modal')">Пропустить</button>
+  </div>
+</div>
+
+<!-- H2O2 POPUP -->
+<div class="h2o2-popup" id="h2o2-popup">
+  <div class="h2o2-sheet">
+    <div class="h2o2-close-row">
+      <h3>🧪 Перекись водорода</h3>
+      <button class="h2o2-close" onclick="document.getElementById('h2o2-popup').classList.remove('open')">✕</button>
+    </div>
+    <p class="h2o2-lead">Безопасный антисептик — защищает ростки и даёт им фору при прорастании.</p>
+    <div class="h2o2-points">
+      <div class="h2o2-point"><div class="h2o2-dot"></div><div class="h2o2-pt-text"><strong>Обеззараживает</strong> <span>— уничтожает споры плесени и бактерии на оболочке семян.</span></div></div>
+      <div class="h2o2-point"><div class="h2o2-dot"></div><div class="h2o2-pt-text"><strong>Ускоряет прорастание</strong> <span>— разрушает природные ингибиторы, которые замедляют пробуждение.</span></div></div>
+      <div class="h2o2-point"><div class="h2o2-dot"></div><div class="h2o2-pt-text"><strong>Насыщает кислородом</strong> <span>— разлагаясь, выделяет O₂ прямо к корням.</span></div></div>
+      <div class="h2o2-point"><div class="h2o2-dot"></div><div class="h2o2-pt-text"><strong>Против плесени</strong> <span>— создаёт неблагоприятную среду с первых дней.</span></div></div>
+    </div>
+    <div class="h2o2-recipe">
+      <span class="h2o2-recipe-label">Пропорция</span>
+      <span class="h2o2-recipe-text">6 мл перекиси 3% на 1 литр воды — вместо обычной воды при первом поливе.</span>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const TASKS=[
+  {day:0,id:'t0',title:'Подготовь набор',pts:10,badge:0,
+   desc:'Достань из коробки: лоток, агровату, семена и распылитель.',
+   detail:'Положи агровату в лоток — она должна лежать ровно и плотно. Налей воду в распылитель (~150 мл). Убедись, что всё на месте прежде чем сеять.'},
+  {day:0,id:'t1',title:'Намочи агровату',pts:15,badge:1,
+   desc:'Равномерно смочи агровату из распылителя. Влажная — но без лужи.',
+   detail:'Распыляй сверху равномерными движениями, пока агровата не потемнеет от влаги. Если перестаралась — наклони лоток, лишняя вода стечёт.'},
+  {day:0,id:'t1b',title:'Обработай раствором перекиси',pts:10,badge:1,optional:true,
+   desc:'Разведи 6 мл перекиси 3% в 1 л воды и равномерно смочи семена и агровату.',
+   detail:'Раствор перекиси защищает от плесени и ускоряет прорастание. Просто разведи в воде и используй вместо обычного полива при первом смачивании. В таком разведении полностью безопасно для растений.'},
+  {day:0,id:'t2',title:'Посей семена',pts:20,badge:0,
+   desc:'Равномерно рассыпь семена по поверхности агроваты. Не засыпай сверху.',
+   detail:'Высыпай тонким слоем, как сахар на блин. Важно: один слой. Слишком густо → плохая вентиляция → плесень. Не вдавливай и не засыпай.'},
+  {day:0,id:'t3',title:'Накрой и в темноту',pts:10,badge:0,
+   desc:'Накрой лоток и поставь в тёмное тёплое место на 2–3 дня.',
+   detail:'В темноте семена прорастают быстрее. Подойдёт шкаф или полка. Главное — не холодно и без прямого солнца.'},
+  {day:3,id:'t4',title:'Проверь первые ростки',pts:15,badge:2,
+   desc:'Открой лоток — должны появиться ростки 1–2 см. Как они?',
+   detail:'Нормально если ростки слегка желтоватые — позеленеют на свету. Нет ростков совсем — проверь влажность агроваты. Видишь плесень — напиши нам на help@rutis.ru.'},
+  {day:3,id:'t5',title:'Перенеси на свет',pts:15,badge:3,
+   desc:'Открой крышку и поставь лоток на подоконник или под лампу.',
+   detail:'Яркий рассеянный свет — идеал. Прямое летнее солнце может обжечь ростки. Поворачивай лоток раз в день — зелень вырастет ровной.'},
+  {day:4,id:'t6',title:'Полей сегодня',pts:10,badge:1,
+   desc:'Побрызгай из распылителя. Агровата должна быть чуть влажной.',
+   detail:'Проверяй пальцем: слегка влажная — достаточно. Совсем сухая — поливай. Стоит вода — пропусти сегодня.'},
+  {day:5,id:'t7',title:'Полей и покрути лоток',pts:10,badge:1,
+   desc:'Полей и поверни лоток на 180° — зелень вырастет ровной.',
+   detail:'Ростки тянутся к источнику света. Один поворот в день создаёт равномерный красивый ковёр.'},
+  {day:6,id:'t8',title:'Замерь высоту ростков',pts:15,badge:4,
+   desc:'Ростки должны быть 3–5 см с первыми листочками. Видишь?',
+   detail:'Маленькие округлые листики на верхушках — отлично! Именно в них сейчас максимум витаминов.'},
+  {day:7,id:'t9',title:'Последний полив',pts:10,badge:1,
+   desc:'Последний активный полив. Завтра можно не поливать — скоро срезка.',
+   detail:'После этого полива агровата будет достаточно влажной до момента сбора. Лишний полив перед срезкой разводняет вкус.'},
+  {day:8,id:'t10',title:'Изучи рецепты 🍽️',pts:5,badge:4,
+   desc:'Пока ждём — загляни, с чем можно есть кресс. Уже предвкушаем!',
+   detail:'Кресс-салат — универсальная микрозелень. Острый бодрящий вкус делает его идеальным топпингом для тостов, яиц, супов. Нажми на карточку рецептов!'},
+  {day:9,id:'t11',title:'🎉 Собери урожай!',pts:30,badge:5,
+   desc:'Высота 5–8 см, листья раскрылись — срезай! Ножницами, чуть выше агроваты.',
+   detail:'Срезай утром — в это время максимум питательных веществ. Промой холодной водой, обсуши и сразу используй. Хранить 2–3 дня в холодильнике. Поздравляем! 🌱'}
+];
+const BADGE_DEFS=[
+  {icon:'🌰',name:'Первый шаг'},{icon:'💧',name:'Полив'},
+  {icon:'🌱',name:'Первый росток'},{icon:'☀️',name:'К свету'},
+  {icon:'🌿',name:'Листочки'},{icon:'✂️',name:'Урожай!'}
+];
+let S={currentScreen:'ob1',startDate:null,completed:[],points:0,badges:[],history:[],ratings:{easy:0,fun:0}};
+function load(){try{const s=localStorage.getItem('rutis3');if(s)S=Object.assign(S,JSON.parse(s));}catch(e){}}
+function save(){try{localStorage.setItem('rutis3',JSON.stringify(S));}catch(e){}}
+function daysSince(){if(!S.startDate)return 0;return Math.floor((Date.now()-new Date(S.startDate))/86400000);}
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  S.currentScreen=id;save();
+}
+function switchInstall(t){
+  document.getElementById('steps-ios').style.display=t==='ios'?'flex':'none';
+  document.getElementById('steps-android').style.display=t==='android'?'flex':'none';
+  document.getElementById('btn-ios').classList.toggle('active',t==='ios');
+  document.getElementById('btn-android').classList.toggle('active',t==='android');
+}
+function startApp(){
+  if(!S.startDate)S.startDate=new Date().toISOString();
+  showScreen('main-screen');
+  renderAll();save();
+}
+function switchTab(tab){
+  const map={main:'main-screen',points:'points-screen',community:'community-screen'};
+  showScreen(map[tab]);
+  ['main','points','community'].forEach(t=>{
+    ['nav','nav2','nav3'].forEach(p=>{
+      const id=p+'-'+(t==='community'?'comm':t);
+      const el=document.getElementById(id);
+      if(el)el.classList.toggle('active',t===tab);
+    });
+  });
+  if(tab==='main')renderAll();
+  if(tab==='points')renderPoints();
+}
+function renderAll(){renderTasks();updateProgress();}
+
+function renderTasks(){
+  const c=document.getElementById('tasks-container');
+  if(!c)return;
+  const today=daysSince();
+  let html='',lastDay=-1;
+  const dayLabels={0:'Посев',3:'Первые ростки',4:'',5:'На свет!',6:'',7:'',8:'',9:'Урожай!'};
+  TASKS.forEach(task=>{
+    if(task.day!==lastDay){
+      lastDay=task.day;
+      html+=`<div class="day-header"><div class="day-badge">День ${task.day+1}</div><span class="day-lbl">${dayLabels[task.day]||''}</span></div>`;
+    }
+    const done=S.completed.includes(task.id);
+    const avail=today>=task.day;
+    html+=`<div class="section" style="margin-bottom:4px;">
+      <div class="task-card${done?' completed':''}${!avail?' future-task':''}${task.optional?' task-optional':''}">
+        <div class="task-inner">
+          <div class="task-check${done?' done':''}" onclick="toggleComplete('${task.id}')"></div>
+          <div class="task-body" onclick="toggleExpand('${task.id}')">
+            <div class="task-title">
+              <span style="flex:1;">${task.title}</span>
+              <span class="task-detail-arrow" id="arr-${task.id}">▾</span>
+              ${task.optional?`<button class="help-btn" onclick="event.stopPropagation();document.getElementById('h2o2-popup').classList.add('open')">?</button>`:''}
+            </div>
+            <div class="task-desc">${task.desc}</div>
+            ${task.optional?`<div class="optional-badge">необязательно</div>`:''}
+          </div>
+        </div>
+        <div id="exp-${task.id}" class="task-expand" style="display:none;"><p>${task.detail}</p></div>
+      </div>
+    </div>`;
+  });
+  c.innerHTML=html;
+  const t=document.getElementById('recipe-teaser');
+  if(t)t.style.display=today>=8?'block':'none';
+}
+function toggleExpand(id){
+  const el=document.getElementById('exp-'+id);
+  const arr=document.getElementById('arr-'+id);
+  if(!el)return;
+  const open=el.style.display!=='none';
+  el.style.display=open?'none':'block';
+  if(arr)arr.classList.toggle('open',!open);
+}
+function toggleComplete(id){
+  const task=TASKS.find(t=>t.id===id);
+  if(!task||daysSince()<task.day)return;
+  if(S.completed.includes(id)){
+    S.completed=S.completed.filter(x=>x!==id);
+    S.points=Math.max(0,S.points-task.pts);
+    S.history=S.history.filter(h=>h.id!==id);
+    save();renderAll();renderPoints();showToast('Отменено');
+  } else {
+    S.completed.push(id);
+    S.points+=task.pts;
+    if(typeof task.badge!=='undefined'&&!S.badges.includes(task.badge))S.badges.push(task.badge);
+    S.history.unshift({id,title:task.title,pts:task.pts,date:new Date().toLocaleDateString('ru-RU',{day:'numeric',month:'long'})});
+    save();renderAll();renderPoints();
+    showToast('+'+task.pts+' очков! 🌱');
+    if(id==='t11')setTimeout(()=>document.getElementById('feedback-modal').classList.add('open'),900);
+  }
+}
+function updateProgress(){
+  const total=TASKS.length,done=S.completed.length,pct=Math.round(done/total*100),today=daysSince();
+  const pb=document.getElementById('pb-fill');if(pb)pb.style.width=pct+'%';
+  const pd=document.getElementById('prog-day');if(pd)pd.textContent='День '+Math.min(today+1,10)+' из 10';
+  const cap=document.getElementById('pb-caption');
+  if(cap)cap.textContent=done===0?'Выполни первое задание!':done===total?'Урожай собран! 🎉':done+' из '+total+' выполнено';
+  const hp=document.getElementById('header-pts');if(hp)hp.textContent=S.points+' очков';
+  ['m1','m2','m3','m4'].forEach((mid,i)=>{
+    const el=document.getElementById(mid);if(el)el.classList.toggle('done',done>=[1,4,8,12][i]);
+  });
+}
+function renderPoints(){
+  const pb=document.getElementById('pts-big');if(pb)pb.textContent=S.points;
+  const lv=document.getElementById('pts-level');
+  if(lv){const lvls=[[0,'🌰 Начинающий садовод'],[50,'🌱 Юный огородник'],[100,'🌿 Опытный садовод'],[150,'🏡 Мастер балконного огорода']];let l=lvls[0][1];for(const[t,n]of lvls)if(S.points>=t)l=n;lv.textContent=l;}
+  const bg=document.getElementById('badges-grid');
+  if(bg)bg.innerHTML=BADGE_DEFS.map((b,i)=>{const e=S.badges.includes(i);return`<div class="badge-item${e?' earned':''}"><span class="badge-icon${e?'':' locked'}">${b.icon}</span><span class="badge-name">${b.name}</span></div>`;}).join('');
+  const hl=document.getElementById('history-list');
+  if(hl&&S.history.length>0)hl.innerHTML=S.history.map(h=>`<div class="history-item"><div><div class="hi-title">${h.title}</div><div class="hi-date">${h.date}</div></div><div class="hi-pts">+${h.pts}</div></div>`).join('');
+}
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.modal-overlay').forEach(m=>{m.addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});});
+document.getElementById('h2o2-popup').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});
+function rateStar(type,val){
+  S.ratings[type]=val;
+  document.querySelectorAll('#stars-'+type+' .star').forEach((s,i)=>s.classList.toggle('active',i<val));
+}
+function submitFeedback(){
+  S.feedbackText=document.getElementById('feedback-text').value;
+  save();closeModal('feedback-modal');showToast('Спасибо за отзыв! 🙏');
+}
+function showToast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+load();
+if(/android/i.test(navigator.userAgent))switchInstall('android');
+if(S.startDate&&S.currentScreen==='main-screen'){startApp();}
+else if(S.currentScreen&&S.currentScreen!=='ob1'){
+  showScreen(S.currentScreen);
+  if(S.currentScreen==='main-screen')renderAll();
+  if(S.currentScreen==='points-screen')renderPoints();
+}
+
+// свайп на онбординге
+(function(){
+  const screens=['ob1','ob2','ob3'];
+  const actions=[
+    ()=>showScreen('ob2'),
+    ()=>showScreen('ob3'),
+    ()=>startApp()
+  ];
+  let startX=0,startY=0;
+  document.getElementById('app').addEventListener('touchstart',function(e){
+    startX=e.touches[0].clientX;
+    startY=e.touches[0].clientY;
+  },{passive:true});
+  document.getElementById('app').addEventListener('touchend',function(e){
+    const cur=S.currentScreen;
+    if(!screens.includes(cur))return;
+    const dx=e.changedTouches[0].clientX-startX;
+    const dy=Math.abs(e.changedTouches[0].clientY-startY);
+    if(Math.abs(dx)>50&&dy<60){
+      const idx=screens.indexOf(cur);
+      if(dx<0&&idx<screens.length-1)actions[idx]();
+      if(dx>0&&idx>0)showScreen(screens[idx-1]);
+    }
+  },{passive:true});
+})();
+</script>
+</body>
+</html>
