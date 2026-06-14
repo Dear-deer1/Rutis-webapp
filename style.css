@@ -45,7 +45,6 @@ h1,h2,h3{font-family:'Montserrat',sans-serif;}
 .ob-illus{
   flex:0 0 55%;
   background:#e0ecf4;
-  overflow:hidden;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -58,8 +57,8 @@ h1,h2,h3{font-family:'Montserrat',sans-serif;}
   display:block;
 }
 .ob-illus img.spin{
-  max-width:72%;
-  max-height:72%;
+  max-width:82%;
+  max-height:82%;
   animation:spin 12s linear infinite;
   transform-origin:center;
 }
@@ -67,6 +66,12 @@ h1,h2,h3{font-family:'Montserrat',sans-serif;}
   from{transform:rotate(0deg);}
   to{transform:rotate(360deg);}
 }
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-14px);}
+}
+.float-a{animation:float 3.2s ease-in-out infinite;}
+.float-b{animation:float 3.2s ease-in-out infinite 1.6s;}
 .ob-body{
   flex:1;
   padding:24px 28px 0;
