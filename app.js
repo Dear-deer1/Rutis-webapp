@@ -97,6 +97,11 @@ function renderTasks(){
     if(task.day!==lastDay){
       lastDay=task.day;
       html+=`<div class="day-header"><div class="day-badge">День ${task.day+1}</div><span class="day-lbl">${dayLabels[task.day]||''}</span></div>`;
+      if(task.day>=3&&today<task.day){
+        const daysLeft=task.day-today;
+        const when=daysLeft===1?'завтра':'через '+daysLeft+' дн.';
+        html+=`<div class="day-locked-hint"><span class="day-locked-icon">⏱</span><span>Откроется ${when} — задания идут по порядку</span></div>`;
+      }
     }
     const done=S.completed.includes(task.id);
     const avail=today>=task.day;
