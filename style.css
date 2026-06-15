@@ -279,7 +279,7 @@ h1,h2,h3{font-family:'Montserrat',sans-serif;}
   flex:1;overflow-y:auto;padding-bottom:80px;
 }
 .comm-logo-footer{padding:24px 20px 8px;display:flex;justify-content:center;}
-.comm-logo-img{width:100%;max-width:100%;height:auto;display:block;opacity:.18;}
+.comm-logo-img{width:100%;max-width:100%;height:auto;display:block;}
 .points-hero{
   background:var(--text);margin:16px 20px;
   border-radius:var(--radius);padding:22px;
