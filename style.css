@@ -241,6 +241,7 @@ h1,h2,h3{font-family:'Montserrat',sans-serif;}
   background:#f7f9fa;
 }
 .task-expand p{font-size:13px;color:var(--text2);line-height:1.65;}
+.task-img{width:100%;border-radius:8px;display:block;margin-bottom:10px;}
 .future-task{opacity:.38;pointer-events:none;}
 
 /* recipe */
