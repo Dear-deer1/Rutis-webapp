@@ -393,10 +393,9 @@ h1,h2,h3{font-family:'Montserrat',sans-serif;}
 .h2o2-popup{
   position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:250;
   display:none;align-items:center;justify-content:center;padding:24px;
-  max-width:430px;left:50%;transform:translateX(-50%);
 }
 .h2o2-popup.open{display:flex;}
-.h2o2-sheet{background:var(--bg);border-radius:var(--radius);width:100%;padding:20px;}
+.h2o2-sheet{background:var(--bg);border-radius:var(--radius);width:100%;max-width:430px;padding:20px;max-height:90vh;overflow-y:auto;}
 .h2o2-close-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
 .h2o2-close-row h3{font-size:15px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px;font-family:'Montserrat',sans-serif;}
 .h2o2-close{background:#f0f0f0;border:none;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;color:var(--text2);flex-shrink:0;}
