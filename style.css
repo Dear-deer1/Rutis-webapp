@@ -153,7 +153,7 @@ h1,h2,h3{font-family:'Montserrat',sans-serif;}
   flex-shrink:0;
 }
 .app-logo{display:flex;align-items:center;}
-.logo-img{height:28px;width:auto;display:block;}
+.logo-img{height:20px;width:auto;display:block;}
 .header-pts{
   background:var(--accent2);color:#1a2a0a;
   border-radius:20px;padding:5px 12px;font-size:13px;font-weight:600;
@@ -278,6 +278,8 @@ h1,h2,h3{font-family:'Montserrat',sans-serif;}
 .pts-scroll,#community-screen .comm-scroll{
   flex:1;overflow-y:auto;padding-bottom:80px;
 }
+.comm-logo-footer{padding:24px 20px 8px;display:flex;justify-content:center;}
+.comm-logo-img{width:100%;max-width:100%;height:auto;display:block;opacity:.18;}
 .points-hero{
   background:var(--text);margin:16px 20px;
   border-radius:var(--radius);padding:22px;
